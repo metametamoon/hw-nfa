@@ -50,6 +50,6 @@ fun nfaToDfa(nfa: Nfa): Nfa {
         setOf(enumerator.registerOrGetSetsNumber(nfa.initialStates)),
         setsWithProcessedOutputs.markedSets.filter { it.intersect(nfa.acceptingStates).isNotEmpty() }
             .map(enumerator::registerOrGetSetsNumber).toSet(),
-        newTranslationRules
+        newTranslationRules.toSet().toList()
     )
 }
