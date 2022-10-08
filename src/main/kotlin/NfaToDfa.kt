@@ -22,7 +22,7 @@ class SetsMarker {
     }
 }
 
-fun Nfa.getAlphabet(): String = translationRules.map(TranslationRule::char).joinToString("")
+fun Nfa.getAlphabet(): String = translationRules.map(TranslationRule::char).toSet().joinToString("")
 
 fun nfaToDfa(nfa: Nfa): Nfa {
     val enumerator = SetsEnumerator()

@@ -23,23 +23,26 @@ fun List<String>.power(n: Int): List<String> {
 fun List<String>.powerNoMoreThan(n: Int): List<String> =
     (0..n).fold(listOf()) { acc, deg -> acc + this.power(deg) }
 
+fun assertEquivalent(nfaLeft: Nfa, nfaRight: Nfa) {
+    listOf("a", "b").powerNoMoreThan(5)
+        .asSequence()
+        .filter { nfaLeft.acceptsString(it) != nfaRight.acceptsString(it) }
+        .forEach { assertEquals(nfaLeft.acceptsString(it), nfaRight.acceptsString(it)) }
+}
 
 internal class NfaToDfaTest {
     @ParameterizedTest
     @MethodSource("dataForEq")
     fun testEquivalence(nfaLeft: Nfa) {
         val nfaRight = nfaToDfa(nfaLeft)
-        listOf("a", "b").powerNoMoreThan(5)
-            .asSequence()
-            .filter { nfaLeft.acceptsString(it) != nfaRight.acceptsString(it) }
-            .forEach { assertEquals(nfaLeft.acceptsString(it), nfaRight.acceptsString(it)) }
+        assertEquivalent(nfaLeft, nfaRight)
     }
 
     companion object {
         @JvmStatic
         fun dataForEq() = listOf(
             Arguments.of(NfaTest.nfaWithLoop),
-            Arguments.of(NfaTest.trivialNfa),
+            Arguments.of(NfaTest.trivialDfa),
             Arguments.of(NfaTest.nfaWithManyInitAccStates)
         )
     }

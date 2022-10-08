@@ -6,7 +6,7 @@ class TestInputOutput {
     companion object {
         fun nfas() = listOf(
             NfaTest.nfaWithLoop,
-            NfaTest.trivialNfa,
+            NfaTest.trivialDfa,
             NfaTest.nfaWithManyInitAccStates
         )
     }
