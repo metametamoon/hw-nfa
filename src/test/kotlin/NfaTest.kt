@@ -18,7 +18,7 @@ internal class NfaTest {
     }
 
     companion object {
-        val trivialNfa: Nfa = run {
+        val trivialDfa: Nfa = run {
             val translationRules = listOf(
                 TranslationRule('a', 0, 1),
                 TranslationRule('b', 1, 2),
@@ -58,7 +58,7 @@ internal class NfaTest {
     @Test
     fun checkTrivialDfa() {
         checkNfa(
-            trivialNfa, shouldAcceptOn = listOf("ab"),
+            trivialDfa, shouldAcceptOn = listOf("ab"),
             shouldRejectOn = listOf("aab, ba")
         )
     }

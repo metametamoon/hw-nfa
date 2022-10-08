@@ -18,6 +18,10 @@ class Nfa(
         currentStates = initialStates
     }
 
+    val maxStateNumber by lazy {
+        translationRules.flatMap { listOf(it.oldState, it.newState) }.toSet().max()
+    }
+
     private fun update(char: Char) {
         currentStates = currentStates.flatMap { currentState ->
             translationRules.possibleStatesOnInput(currentState, char)
